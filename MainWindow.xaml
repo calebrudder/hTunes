@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="hTunes" Height="450" Width="800">
     <Grid>
+        <ToolBar HorizontalAlignment="Left" Height="41" Margin="10,12,0,0" VerticalAlignment="Top" Width="775">
+            <Button Content="Add Song"/>
+            <Button Content="Add Playlist"/>
+            <Button Content="About"/>
+        </ToolBar>
         <ListBox x:Name="playlistList" HorizontalAlignment="Left" Height="341" Margin="10,58,0,0" VerticalAlignment="Top" Width="159"/>
         <DataGrid x:Name="songList" HorizontalAlignment="Left" Height="289" Margin="203,58,0,0" VerticalAlignment="Top" Width="582" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -26,11 +31,7 @@
         </DataGrid>
         <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Margin="203,372,0,0" VerticalAlignment="Top" Width="146"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Margin="379,372,0,0" VerticalAlignment="Top" Width="146"/>
-        <ToolBar HorizontalAlignment="Left" Height="41" Margin="10,12,0,0" VerticalAlignment="Top" Width="775">
-            <Button Content="Add Song"/>
-            <Button Content="Add Playlist"/>
-            <Button Content="About"/>
-        </ToolBar>
+        
 
     </Grid>
 </Window>
