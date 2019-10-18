@@ -15,5 +15,7 @@ namespace hTunes
         public string Album { get; set; }
 
         public string Genre { get; set; }
+
+        public string AlbumImage { get; set; }
     }
 }

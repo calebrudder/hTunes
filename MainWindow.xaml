@@ -29,9 +29,32 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        
+        
+        
         <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Margin="203,372,0,0" VerticalAlignment="Top" Width="146"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Margin="379,372,0,0" VerticalAlignment="Top" Width="146"/>
-        <DataGrid Name="dataGrid" HorizontalAlignment="Left" Height="242" Margin="216,91,0,0" VerticalAlignment="Top" Width="452" SelectionChanged="dataGrid_SelectionChanged"/>
+        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="242" Margin="216,91,0,0" VerticalAlignment="Top" Width="452" SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding Artist}" Header="Artist"/>
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title"/>
+                <DataGridTextColumn Binding="{Binding Genre}" Header="Genre"/>
+                <DataGridTextColumn Binding="{Binding Album}" Header="Album"/>
+            </DataGrid.Columns>
+
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border Background="AliceBlue">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Title}" />
+                            <Image Source="{Binding AlbumImage}" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+
+        </DataGrid>
 
 
     </Grid>

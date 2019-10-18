@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,18 +26,42 @@ namespace hTunes
             InitializeComponent();
             List<Song> allSongs = new List<Song>();
 
+            /*
             // Loop through all the songs and get info to put into allSongs List
             allSongs.Add(new Song
             {
                 Id = 1,
                 Title = "Something",
-                Album =
-                "an album",
+                Album = "an album",
                 Artist = "Toby Mac",
-                Genre = "Rock"
+                Genre = "Rock",
+                AlbumImage = "http://www.harding.edu/fmccown/images/broncos.gif"
             });
             dataGrid.ItemsSource = allSongs;
+            */
 
+            DataTable table = new DataTable("Song");
+            table.Columns.Add(new DataColumn("Id", typeof(int)));
+            table.Columns.Add(new DataColumn("Title", typeof(string)));
+            table.Columns.Add(new DataColumn("Artist", typeof(string)));
+            table.Columns.Add(new DataColumn("AlbumImage", typeof(string)));
+
+            DataRow row = table.NewRow();
+            row["Id"] = 1;
+            row["Title"] = "Good Vibrations";
+            row["Artist"] = "The Beach Boys";
+            row["AlbumImage"] = "http://www.harding.edu/fmccown/images/broncos.gif";
+            table.Rows.Add(row);
+
+            row = table.NewRow();
+            row["Id"] = 2;
+            row["Title"] = "Love Me Tender";
+            row["Artist"] = "Elvis Presley";
+            row["AlbumImage"] = "http://www.harding.edu/fmccown/images/cowboys.png";
+            table.Rows.Add(row);
+
+            // Bind the data source
+            dataGrid.ItemsSource = table.DefaultView;
 
         }
 
