@@ -103,7 +103,11 @@ namespace hTunes
                 Filename = filename
             };
 
-            GetSongData(s);
+            // TODO: FIX
+            //  GetSongData does not exist in current context
+            //      Maybe need API????
+
+            // GetSongData(s);
 
             AddSong(s);
             return s;
