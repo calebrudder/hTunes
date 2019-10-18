@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,24 +21,26 @@ namespace hTunes
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MusicLib musicLib;
         public MainWindow()
         {
             InitializeComponent();
-            List<Song> allSongs = new List<Song>();
-
-            // Loop through all the songs and get info to put into allSongs List
-            allSongs.Add(new Song
-            {
-                Id = 1,
-                Title = "Something",
-                Album =
-                "an album",
-                Artist = "Toby Mac",
-                Genre = "Rock"
-            });
-            dataGrid.ItemsSource = allSongs;
+            musicLib = new MusicLib();
+            musicLib.PrintAllTables();
 
 
+            // TODO: Get songs from music.xml (?)
+            // TODO: Put those songs in table   
+
+
+            //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
+            DataTable table = musicLib.Songs;
+
+            // Found string[] for songs
+            // string allSongs[] = musicLib.SongIds;  
+
+            // Bind the data source
+            dataGrid.ItemsSource = table.DefaultView;
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
