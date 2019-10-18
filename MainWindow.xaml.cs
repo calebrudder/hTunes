@@ -40,6 +40,9 @@ namespace hTunes
             dataGrid.ItemsSource = allSongs;
             */
 
+            // TODO: Get songs from music.xml (?)
+            // TODO: Put those songs in table
+
             DataTable table = new DataTable("Song");
             table.Columns.Add(new DataColumn("Id", typeof(int)));
             table.Columns.Add(new DataColumn("Title", typeof(string)));
