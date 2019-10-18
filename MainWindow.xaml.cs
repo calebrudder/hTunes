@@ -41,8 +41,9 @@ namespace hTunes
             */
 
             // TODO: Get songs from music.xml (?)
-            // TODO: Put those songs in table
+            // TODO: Put those songs in table   
 
+            /*
             DataTable table = new DataTable("Song");
             table.Columns.Add(new DataColumn("Id", typeof(int)));
             table.Columns.Add(new DataColumn("Title", typeof(string)));
@@ -62,10 +63,15 @@ namespace hTunes
             row["Artist"] = "Elvis Presley";
             row["AlbumImage"] = "http://www.harding.edu/fmccown/images/cowboys.png";
             table.Rows.Add(row);
+            */
+
+
+
+            MusicLib musicLib = new MusicLib();
+            DataTable table = musicLib.SongsForPlaylist("Cool Stuff!");
 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
-
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
