@@ -31,8 +31,8 @@
                 <DataTemplate>
                     <Border Background="AliceBlue">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Title}" />
-                            <Image Source="{Binding AlbumImage}" />
+                            <TextBlock Text="{Binding title}" />
+                            <Image Source="{Binding albumImage}" />
                         </StackPanel>
                     </Border>
                 </DataTemplate>
