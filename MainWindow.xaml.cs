@@ -61,12 +61,28 @@ namespace hTunes
 
                 Song theSong = musicLib.GetSong(songId);
                 // PlaySound(theSong.Filename);
-                Uri uri = new Uri(theSong.Filename);
+                Uri uri = new Uri(theSong.Filename, UriKind.Relative);
                 mp.Open(uri);
                 mp.Play();
             }
 
         }
 
+        private void stopButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView rowView = dataGrid.SelectedItem as DataRowView;
+            if (rowView != null)
+            {
+                // Extract the song ID from the selected song
+                int songId = Convert.ToInt32(rowView.Row.ItemArray[0]);
+                // Console.WriteLine("Selected song " + songId);
+
+                Song theSong = musicLib.GetSong(songId);
+                
+                Uri uri = new Uri(theSong.Filename, UriKind.Relative);
+                mp.Open(uri);
+                mp.Stop();
+            }
+        }
     }
 }
