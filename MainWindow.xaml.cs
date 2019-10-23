@@ -61,7 +61,7 @@ namespace hTunes
 
                 Song theSong = musicLib.GetSong(songId);
                 // PlaySound(theSong.Filename);
-                Uri uri = new Uri(theSong.Filename, UriKind.Relative);
+                Uri uri = new Uri(theSong.Filename);
                 mp.Open(uri);
                 mp.Play();
             }
@@ -79,7 +79,7 @@ namespace hTunes
 
                 Song theSong = musicLib.GetSong(songId);
                 
-                Uri uri = new Uri(theSong.Filename, UriKind.Relative);
+                Uri uri = new Uri(theSong.Filename);
                 mp.Open(uri);
                 mp.Stop();
             }
