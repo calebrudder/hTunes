@@ -47,5 +47,26 @@ namespace hTunes
         {
 
         }
+
+        // https://www.wpf-tutorial.com/audio-video/playing-audio/
+        private MediaPlayer mp = new MediaPlayer();
+        private void playButton_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView rowView = dataGrid.SelectedItem as DataRowView;
+            if (rowView != null)
+            {
+                // Extract the song ID from the selected song
+                int songId = Convert.ToInt32(rowView.Row.ItemArray[0]);
+                // Console.WriteLine("Selected song " + songId);
+
+                Song theSong = musicLib.GetSong(songId);
+                // PlaySound(theSong.Filename);
+                Uri uri = new Uri(theSong.Filename);
+                mp.Open(uri);
+                mp.Play();
+            }
+
+        }
+
     }
 }
