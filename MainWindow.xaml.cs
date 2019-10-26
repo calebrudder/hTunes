@@ -32,7 +32,6 @@ namespace hTunes
             // TODO: Get songs from music.xml (?)
             // TODO: Put those songs in table   
 
-
             //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
             DataTable table = musicLib.Songs;
 
@@ -41,6 +40,9 @@ namespace hTunes
 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
+
+            string[] playlists = musicLib.Playlists;
+            playlistList.ItemsSource = playlists;
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
