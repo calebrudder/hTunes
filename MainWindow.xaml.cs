@@ -41,13 +41,32 @@ namespace hTunes
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
 
-            string[] playlists = musicLib.Playlists;
+            List<string> playlists = new List<string>();
+            playlists.Add("All Music");
+            playlists.AddRange(musicLib.Playlists);
+
             playlistList.ItemsSource = playlists;
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void playlistList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataTable table;
+            string playlistName = (sender as ListBox).SelectedItem.ToString();
+            if (playlistName == "All Music")
+            {
+                table = musicLib.Songs;
+                dataGrid.ItemsSource = table.DefaultView;
+            }
+            else
+            {
+                table = musicLib.SongsForPlaylist(playlistName);
+                dataGrid.ItemsSource = table.DefaultView;
+            }
         }
     }
 }
