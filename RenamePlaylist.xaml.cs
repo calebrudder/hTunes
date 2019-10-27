@@ -19,11 +19,14 @@ namespace hTunes
     /// </summary>
     public partial class RenamePlaylist : Window
     {
+
         public string updatedPlaylistName;
+
         public RenamePlaylist()
         {
             InitializeComponent();
         }
+
 
         private void OkButton_Clicked(object sender, RoutedEventArgs e)
         {
