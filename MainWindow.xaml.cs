@@ -22,6 +22,7 @@ namespace hTunes
     public partial class MainWindow : Window
     {
         private MusicLib musicLib;
+        private DataTable table;
         private About about;
         public MainWindow()
         {
@@ -57,7 +58,30 @@ namespace hTunes
 
         private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
         {
-            
+            // Get the song id 
+            int songId = findSelectedRowInDataGrid();
+
+            // Remove the song from all playlist
+            if (songId != -1)
+            {
+                musicLib.DeleteSong(songId);
+            }
+        }
+
+        private int findSelectedRowInDataGrid()
+        {
+            DataRowView rowView = dataGrid.SelectedItem as DataRowView;
+            if (rowView != null)
+            {
+                // Extract the song ID from the selected song
+                int songId = Convert.ToInt32(rowView.Row.ItemArray[0]);
+                return songId;
+            }
+            else
+            {
+                return -1;
+            }
+
         }
     }
 }
