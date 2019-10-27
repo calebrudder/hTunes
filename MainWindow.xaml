@@ -20,10 +20,11 @@
         <ToolBar Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" >
             <Button x:Name="Add_Song_Button" Content="Add Song" Click="Add_Song_Button_Click"/>
             <Button x:Name="Add_Playlist_Button" Content="Add Playlist" Click="Add_Playlist_Button_Click"/>
+
             <Button x:Name="About_Button" Content="About" Margin="0,12,0,0" VerticalAlignment="Top" Click="About_Button_Click"/>
         </ToolBar>
         <TextBox x:Name="Search_Text_Box" Grid.Row="0" Grid.Column="1" Width="150" Height="30" HorizontalAlignment="Right" Margin="0,0,10,0" Text="Search" GotFocus="Search_Text_Box_GotFocus" KeyUp="Search_Text_Box_KeyUp" ></TextBox>
-        <ListBox x:Name="playlistList" Grid.Row="1" Grid.Column="0"/>
+        <ListBox x:Name="playlistList" Grid.Row="1" Grid.Column="0" SelectionChanged="playlistList_SelectionChanged"/>
 
         <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.Columns>
