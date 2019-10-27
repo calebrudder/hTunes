@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 
 namespace hTunes
 {
+    // Reference for mediaPlayer:
+    // https://www.wpf-tutorial.com/audio-video/playing-audio/
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -24,11 +27,14 @@ namespace hTunes
         private MusicLib musicLib;
         private DataTable table;
         private About about;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
             musicLib = new MusicLib();
             musicLib.PrintAllTables();
+
 
 
             // TODO: Get songs from music.xml (?)
@@ -86,9 +92,16 @@ namespace hTunes
 
         private void Play_MenuItemClick(object sender, RoutedEventArgs e)
         {
-            // Get song id (?)
 
-            // Play the song
+            // Get song id
+            int songId = findSelectedRowInDataGrid();
+
+            // Get the song itself
+            Song theSong = musicLib.GetSong(songId);
+
+            // Play song using media player
+            mediaPlayer.Open(new Uri(theSong.Filename));
+            mediaPlayer.Play();
         }
     }
 }
