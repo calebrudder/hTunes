@@ -54,5 +54,17 @@ namespace hTunes
             about = new About();
             about.ShowDialog();
         }
+
+        private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Search_Text_Box.Text = "";
+        }
+
+        private void Search_Text_Box_KeyUp(object sender, KeyEventArgs e)
+        {
+            string text = Search_Text_Box.Text;
+
+            //TODO: Search xml for songs containing text
+        }
     }
 }
