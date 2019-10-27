@@ -9,7 +9,7 @@
     <Grid>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="10,12,0,0" VerticalAlignment="Top" Width="775">
             <Button Content="Add Song"/>
-            <Button Content="Add Playlist"/>
+            <Button x:Name ="addPlaylistBtn" Content="Add Playlist" Click="addPlaylistBtn_Clicked"/>
             <Button Content="About"/>
         </ToolBar>
         <ListBox x:Name="playlistList" HorizontalAlignment="Left" Height="341" Margin="10,58,0,0" VerticalAlignment="Top" Width="159" SelectionChanged="playlistList_SelectionChanged"/>

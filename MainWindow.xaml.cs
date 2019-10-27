@@ -68,5 +68,11 @@ namespace hTunes
                 dataGrid.ItemsSource = table.DefaultView;
             }
         }
+
+        private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            AddPlaylist addPlaylistWindow = new AddPlaylist();
+            addPlaylistWindow.Show();
+        }
     }
 }
