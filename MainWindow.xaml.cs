@@ -83,5 +83,12 @@ namespace hTunes
             }
 
         }
+
+        private void Play_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+            // Get song id (?)
+
+            // Play the song
+        }
     }
 }
