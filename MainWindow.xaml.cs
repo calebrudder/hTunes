@@ -24,6 +24,7 @@ namespace hTunes
     {
         private MusicLib musicLib;
         private About about;
+        private AddPlaylistWindow playlistWindow;
         public MainWindow()
         {
             InitializeComponent();
@@ -81,6 +82,12 @@ namespace hTunes
                 int sID = s.Id;
             }
 
+        }
+
+        private void Add_Playlist_Button_Click(object sender, RoutedEventArgs e)
+        {
+            playlistWindow = new AddPlaylistWindow();
+            playlistWindow.ShowDialog();
         }
     }
 }

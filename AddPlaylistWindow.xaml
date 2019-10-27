@@ -1,0 +1,21 @@
+﻿<Window x:Class="hTunes.AddPlaylistWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hTunes"
+        mc:Ignorable="d"
+        Title="New Playlist" Height="250" Width="400" Icon="icon.ico" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="Playlist_Name_Label" Grid.Row="0" VerticalAlignment="Center" Margin="76,0,-76,85.5" Grid.RowSpan="2">Playlist Name:</Label>
+        <TextBox x:Name="Playlist_Name_Textbox" Grid.Row="0" Height="20" VerticalAlignment="Center" Margin="200,0,94,85.5" Grid.RowSpan="2"/>
+
+        <Button x:Name="OK_Button" Grid.Row="1" VerticalAlignment="Top" Width="100" Height="20" Margin="26,33,169,33.5" Click="OK_Button_Click">OK</Button>
+        <Button x:Name="Cancel_Button" Grid.Row="1" VerticalAlignment="Top" Width="100" Height="20" Margin="150,33,45,33.5" Click="Cancel_Button_Click">Cancel</Button>
+    </Grid>
+</Window>
