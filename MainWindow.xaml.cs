@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -65,6 +66,21 @@ namespace hTunes
             string text = Search_Text_Box.Text;
 
             //TODO: Search xml for songs containing text
+        }
+
+        private void Add_Song_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Media Files (*.mp3;*.m4a;*.wma;*.wav)|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*wma|Wave Files (*.wav)|*.wav|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Song s = musicLib.AddSong(openFileDialog.FileName);
+                musicLib.Save();
+                int sID = s.Id;
+            }
+
         }
     }
 }
