@@ -22,6 +22,7 @@ namespace hTunes
     public partial class MainWindow : Window
     {
         private MusicLib musicLib;
+        private About about;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +47,12 @@ namespace hTunes
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void About_Button_Click(object sender, RoutedEventArgs e)
+        {
+            about = new About();
+            about.ShowDialog();
         }
     }
 }
