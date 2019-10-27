@@ -76,6 +76,9 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddPlaylistWindow.xaml.cs">
+      <DependentUpon>AddPlaylistWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="music.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +88,10 @@
     <Compile Include="Song.cs" />
     <Page Include="AddPlaylist.xaml">
     <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddPlaylistWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
