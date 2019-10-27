@@ -27,6 +27,7 @@
         <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Play" Click="Play_MenuItemClick"></MenuItem>
                     <MenuItem Header="Remove" Click="Delete_MenuItemClick"></MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>
