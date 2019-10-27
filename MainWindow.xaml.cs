@@ -57,7 +57,7 @@ namespace hTunes
 
         private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
