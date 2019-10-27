@@ -19,9 +19,31 @@ namespace hTunes
     /// </summary>
     public partial class AddPlaylist : Window
     {
+        public string newPlaylistName;
+
         public AddPlaylist()
         {
             InitializeComponent();
         }
+
+        private void OkButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            newPlaylistName = playlistNameBox.Text.Trim();
+            if (newPlaylistName == ""|| newPlaylistName == null)
+            {
+                MessageBox.Show("Please enter a playlist name.");
+                playlistNameBox.Text = "";
+            }
+            else
+            {
+                DialogResult = true;
+                Close();
+            }
+        }
+
+        //private void CancelButton_Clicked(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
     }
 }

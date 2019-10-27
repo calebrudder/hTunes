@@ -9,7 +9,7 @@
     <Grid>
         <ToolBar HorizontalAlignment="Left" Height="41" Margin="10,12,0,0" VerticalAlignment="Top" Width="775">
             <Button Content="Add Song"/>
-            <Button x:Name ="addPlaylistBtn" Content="Add Playlist" Click="addPlaylistBtn_Clicked"/>
+            <Button x:Name ="newPlaylistBtn" Content="New Playlist" Click="addPlaylistBtn_Clicked"/>
             <Button Content="About"/>
         </ToolBar>
         <ListBox x:Name="playlistList" HorizontalAlignment="Left" Height="341" Margin="10,58,0,0" VerticalAlignment="Top" Width="159" SelectionChanged="playlistList_SelectionChanged"/>
@@ -18,7 +18,7 @@
 
         <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Margin="203,372,0,0" VerticalAlignment="Top" Width="146"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Margin="379,372,0,0" VerticalAlignment="Top" Width="146"/>
-        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="294" Margin="191,58,0,0" VerticalAlignment="Top" Width="574" SelectionChanged="dataGrid_SelectionChanged">
+        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="294" Margin="191,56,0,0" VerticalAlignment="Top" Width="574" SelectionChanged="dataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding artist}" Header="Artist"/>

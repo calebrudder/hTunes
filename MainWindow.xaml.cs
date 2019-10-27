@@ -22,6 +22,7 @@ namespace hTunes
     public partial class MainWindow : Window
     {
         private MusicLib musicLib;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace hTunes
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
 
-            List<string> playlists = new List<string>();
+            List<string>playlists = new List<string>();
             playlists.Add("All Music");
             playlists.AddRange(musicLib.Playlists);
 
@@ -72,7 +73,25 @@ namespace hTunes
         private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
         {
             AddPlaylist addPlaylistWindow = new AddPlaylist();
-            addPlaylistWindow.Show();
+            addPlaylistWindow.Owner = this;
+            addPlaylistWindow.ShowDialog();
+            if (addPlaylistWindow.DialogResult == true)
+            {
+                string newPlaylistName = addPlaylistWindow.newPlaylistName;
+                if(musicLib.PlaylistExists(newPlaylistName))
+                {
+                    MessageBox.Show("There is already a playlist with that name");
+                }
+                else
+                {
+                    musicLib.AddPlaylist(newPlaylistName);
+                    musicLib.Save();
+                    List<string> updatedPlaylists = new List<string>();
+                    updatedPlaylists.Add("All Music");
+                    updatedPlaylists.AddRange(musicLib.Playlists);
+                    playlistList.ItemsSource = updatedPlaylists;
+                }
+            }
         }
     }
 }
