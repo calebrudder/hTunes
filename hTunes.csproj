@@ -71,6 +71,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddPlaylist.xaml.cs">
+      <DependentUpon>AddPlaylist.xaml</DependentUpon>
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -81,6 +83,7 @@
     </Compile>
     <Compile Include="MusicLib.cs" />
     <Compile Include="Song.cs" />
+    <Page Include="AddPlaylist.xaml">
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

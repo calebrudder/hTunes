@@ -34,7 +34,6 @@ namespace hTunes
             // TODO: Get songs from music.xml (?)
             // TODO: Put those songs in table   
 
-
             //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
             DataTable table = musicLib.Songs;
 
@@ -43,6 +42,12 @@ namespace hTunes
 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
+
+            List<string>playlists = new List<string>();
+            playlists.Add("All Music");
+            playlists.AddRange(musicLib.Playlists);
+
+            playlistList.ItemsSource = playlists;
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,6 +55,44 @@ namespace hTunes
 
         }
 
+        private void playlistList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataTable table;
+            string playlistName = (sender as ListBox).SelectedItem.ToString();
+            if (playlistName == "All Music")
+            {
+                table = musicLib.Songs;
+                dataGrid.ItemsSource = table.DefaultView;
+            }
+            else
+            {
+                table = musicLib.SongsForPlaylist(playlistName);
+                dataGrid.ItemsSource = table.DefaultView;
+            }
+        }
+        private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            AddPlaylist addPlaylistWindow = new AddPlaylist();
+            addPlaylistWindow.Owner = this;
+            addPlaylistWindow.ShowDialog();
+            if (addPlaylistWindow.DialogResult == true)
+            {
+                string newPlaylistName = addPlaylistWindow.newPlaylistName;
+                if(musicLib.PlaylistExists(newPlaylistName))
+                {
+                    MessageBox.Show("There is already a playlist with that name");
+                }
+                else
+                {
+                    musicLib.AddPlaylist(newPlaylistName);
+                    musicLib.Save();
+                    List<string> updatedPlaylists = new List<string>();
+                    updatedPlaylists.Add("All Music");
+                    updatedPlaylists.AddRange(musicLib.Playlists);
+                    playlistList.ItemsSource = updatedPlaylists;
+                }
+            }
+        }
         private void About_Button_Click(object sender, RoutedEventArgs e)
         {
             about = new About();
@@ -80,7 +123,6 @@ namespace hTunes
                 musicLib.Save();
                 int sID = s.Id;
             }
-
         }
     }
 }
