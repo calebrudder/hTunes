@@ -247,7 +247,6 @@ namespace hTunes
         /// <returns>True if the playlist was successfully added</returns>
         public bool AddPlaylist(string playlist)
         {
-
             Console.WriteLine("AddPlaylist: " + playlist);
             DataTable table = musicDataSet.Tables["playlist"];
             DataRow row = table.NewRow();
