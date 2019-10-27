@@ -15,23 +15,21 @@ using System.Windows.Shapes;
 namespace hTunes
 {
     /// <summary>
-    /// Interaction logic for RenamePlaylist.xaml
+    /// Interaction logic for AddPlaylist.xaml
     /// </summary>
-    public partial class RenamePlaylist : Window
+    public partial class AddPlaylist : Window
     {
+        public string newPlaylistName;
 
-        public string updatedPlaylistName;
-
-        public RenamePlaylist()
+        public AddPlaylist()
         {
             InitializeComponent();
         }
 
-
         private void OkButton_Clicked(object sender, RoutedEventArgs e)
         {
-            updatedPlaylistName = playlistNameBox.Text.Trim();
-            if (updatedPlaylistName == "" || updatedPlaylistName == null)
+            newPlaylistName = playlistNameBox.Text.Trim();
+            if (newPlaylistName == "" || newPlaylistName == null)
             {
                 MessageBox.Show("Please enter a playlist name.");
                 playlistNameBox.Text = "";
@@ -42,5 +40,11 @@ namespace hTunes
                 Close();
             }
         }
+
+        //private void CancelButton_Clicked(object sender, RoutedEventArgs e)
+        //{
+        //    Close();
+        //}
     }
 }
+
