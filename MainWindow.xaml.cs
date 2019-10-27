@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace hTunes
     public partial class MainWindow : Window
     {
         private MusicLib musicLib;
-
+        private About about;
         public MainWindow()
         {
             InitializeComponent();
@@ -69,7 +70,6 @@ namespace hTunes
                 dataGrid.ItemsSource = table.DefaultView;
             }
         }
-
         private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
         {
             AddPlaylist addPlaylistWindow = new AddPlaylist();
@@ -91,6 +91,37 @@ namespace hTunes
                     updatedPlaylists.AddRange(musicLib.Playlists);
                     playlistList.ItemsSource = updatedPlaylists;
                 }
+            }
+        }
+        private void About_Button_Click(object sender, RoutedEventArgs e)
+        {
+            about = new About();
+            about.ShowDialog();
+        }
+
+        private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Search_Text_Box.Text = "";
+        }
+
+        private void Search_Text_Box_KeyUp(object sender, KeyEventArgs e)
+        {
+            string text = Search_Text_Box.Text;
+
+            //TODO: Search xml for songs containing text
+        }
+
+        private void Add_Song_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Media Files (*.mp3;*.m4a;*.wma;*.wav)|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*wma|Wave Files (*.wav)|*.wav|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Song s = musicLib.AddSong(openFileDialog.FileName);
+                musicLib.Save();
+                int sID = s.Id;
             }
         }
     }
