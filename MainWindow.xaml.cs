@@ -54,5 +54,10 @@ namespace hTunes
             about = new About();
             about.ShowDialog();
         }
+
+        private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

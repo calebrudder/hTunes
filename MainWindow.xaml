@@ -25,6 +25,11 @@
         <ListBox x:Name="playlistList" Grid.Row="1" Grid.Column="0"/>
 
         <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Remove" Click="Delete_MenuItemClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding artist}" Header="Artist"/>
