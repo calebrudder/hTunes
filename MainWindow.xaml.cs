@@ -73,7 +73,7 @@ namespace hTunes
             int songId = findSelectedRowInDataGrid();
 
             // Remove the song from all playlist
-            if (songId != -1)
+            if (songId != -1 || songId != null)
             {
                 Song s = musicLib.GetSong(songId);
                 string name = s.Title;
@@ -113,9 +113,12 @@ namespace hTunes
             // Get the song itself
             Song theSong = musicLib.GetSong(songId);
 
-            // Play song using media player
-            mediaPlayer.Open(new Uri(theSong.Filename));
-            mediaPlayer.Stop();
+            if (theSong != null)
+            {
+                // Stop song using media player
+                mediaPlayer.Open(new Uri(theSong.Filename));
+                mediaPlayer.Stop();
+            }
         }
 
         private void playTheSong()
@@ -126,9 +129,13 @@ namespace hTunes
             // Get the song itself
             Song theSong = musicLib.GetSong(songId);
 
+
             // Play song using media player
-            mediaPlayer.Open(new Uri(theSong.Filename));
-            mediaPlayer.Play();
+            if (theSong != null)
+            {
+                mediaPlayer.Open(new Uri(theSong.Filename));
+                mediaPlayer.Play();
+            }
         }
         private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
         {
