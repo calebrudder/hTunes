@@ -37,16 +37,9 @@ namespace hTunes
             musicLib.PrintAllTables();
 
 
-
-            // TODO: Get songs from music.xml (?)
-            // TODO: Put those songs in table   
-
-
             //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
             DataTable table = musicLib.Songs;
-
-            // Found string[] for songs
-            // string allSongs[] = musicLib.SongIds;  
+ 
 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
@@ -106,7 +99,35 @@ namespace hTunes
 
         private void Play_MenuItemClick(object sender, RoutedEventArgs e)
         {
+            /*
+            // Get song id
+            int songId = findSelectedRowInDataGrid();
 
+            // Get the song itself
+            Song theSong = musicLib.GetSong(songId);
+
+            // Play song using media player
+            mediaPlayer.Open(new Uri(theSong.Filename));
+            mediaPlayer.Play();
+            */
+            playTheSong();
+        }
+
+        private void stopTheSong()
+        {
+            // Get song id
+            int songId = findSelectedRowInDataGrid();
+
+            // Get the song itself
+            Song theSong = musicLib.GetSong(songId);
+
+            // Play song using media player
+            mediaPlayer.Open(new Uri(theSong.Filename));
+            mediaPlayer.Stop();
+        }
+
+        private void playTheSong()
+        {
             // Get song id
             int songId = findSelectedRowInDataGrid();
 
@@ -180,6 +201,16 @@ namespace hTunes
                     playlistList.ItemsSource = updatedPlaylists;
                 }
             }
+        }
+
+        private void playButton_Click(object sender, RoutedEventArgs e)
+        {
+            playTheSong();
+        }
+
+        private void stopButton_Click(object sender, RoutedEventArgs e)
+        {
+            stopTheSong();
         }
     }
 }

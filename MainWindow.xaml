@@ -60,8 +60,8 @@
 
         </DataGrid>
 
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146"/>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146" Click="playButton_Click"/>
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146" Click="stopButton_Click"/>
 
     </Grid>
 </Window>
