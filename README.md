@@ -5,26 +5,26 @@ This is a project for the GUI class at Harding University. We are creating a mus
 
 With this program you should be able to add your songs to the library, create playlists, and listen to your songs.
 
-Additional Requirmets:
+Additional Requirmets: 
 
-Teammate Contribution:
-  Caleb Rudder:
+Teammate Contribution: 
+  Caleb Rudder: 
   
   
-  Riley Judd:
+  Riley Judd: 
   
   
-  Hyhway Therrell:
-    DataGrid
-    DataGrid context menu
-       Delete song
-       Play
-    Play and Stop buttons
-    Search box
-    Various bug fixes
-    Focus the new song when added
+  Hyhway Therrell: 
+    DataGrid 
+    DataGrid context menu 
+       Delete song 
+       Play 
+    Play and Stop buttons 
+    Search box 
+    Various bug fixes 
+    Focus the new song when added 
 
-Teammate Percentage:
- Caleb Rudder: 
- Riley Judd: 
- Hyhway Therrell: 30%
+Teammate Percentage: 
+ Caleb Rudder:  
+ Riley Judd:  
+ Hyhway Therrell: 30% 
