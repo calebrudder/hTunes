@@ -83,7 +83,7 @@ namespace hTunes
                 musicLib.DeleteSong(songId);
 
                 MessageBox.Show(name + " has been removed from the library.");
-                musicLib.Save();
+
             }
         }
 
@@ -170,7 +170,6 @@ namespace hTunes
             if (openFileDialog.ShowDialog() == true)
             {
                 Song s = musicLib.AddSong(openFileDialog.FileName);
-                musicLib.Save();
                 int sID = s.Id;
             }
 
@@ -208,7 +207,6 @@ namespace hTunes
                 else
                 {
                     musicLib.AddPlaylist(newPlaylistName);
-                    musicLib.Save();
                     List<string> updatedPlaylists = new List<string>();
                     updatedPlaylists.Add("All Music");
                     updatedPlaylists.AddRange(musicLib.Playlists);
@@ -233,7 +231,6 @@ namespace hTunes
                 else
                 {
                     musicLib.RenamePlaylist(oldPlaylistName, newPlaylistName);
-                    musicLib.Save();
                     List<string> updatedPlaylists = new List<string>();
                     updatedPlaylists.Add("All Music");
                     updatedPlaylists.AddRange(musicLib.Playlists);
@@ -265,7 +262,6 @@ namespace hTunes
             string playlistName = txtblock.Text;
             int song = Int32.Parse(songId);
             musicLib.AddSongToPlaylist(song, playlistName);
-            musicLib.Save();
             
         }
 
@@ -292,6 +288,11 @@ namespace hTunes
             // Store the mouse position
             startPoint = e.GetPosition(null);
 
+        }
+
+        private void MusicPlayerWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            musicLib.Save();
         }
     }
 }
