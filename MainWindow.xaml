@@ -6,6 +6,22 @@
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
         Title="hTunes"  MinWidth="750" MinHeight="300" Closing="MusicPlayerWindow_Closing">
+
+    <Window.Resources>
+        <ControlTemplate x:Key="PlayStopButtonTemplate" TargetType="Button">
+            <Border Name="Border" BorderThickness="2" CornerRadius="10" Background="AliceBlue">
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Content}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="lightBlue"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="Blue"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -65,8 +81,8 @@
 
         </DataGrid>
 
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146" Click="playButton_Click"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146" Click="stopButton_Click"/>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146" Click="playButton_Click" Template="{StaticResource PlayStopButtonTemplate}"/>
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146" Click="stopButton_Click" Template="{StaticResource PlayStopButtonTemplate}"/>
 
     </Grid>
 </Window>

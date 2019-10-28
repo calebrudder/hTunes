@@ -83,7 +83,6 @@ namespace hTunes
                 musicLib.DeleteSong(songId);
 
                 MessageBox.Show(name + " has been removed from the library.");
-
             }
         }
 
@@ -218,26 +217,7 @@ namespace hTunes
 
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
-            string oldPlaylistName = playlistList.SelectedItem.ToString();
-            RenamePlaylist renamePlaylistWindow = new RenamePlaylist();
-            renamePlaylistWindow.Owner = this;
-            renamePlaylistWindow.ShowDialog();
-            if (renamePlaylistWindow.DialogResult == true)
-            {
-                string newPlaylistName = renamePlaylistWindow.updatedPlaylistName;
-                if (musicLib.PlaylistExists(newPlaylistName))
-                {
-                    MessageBox.Show("There is already a playlist with that name");
-                }
-                else
-                {
-                    musicLib.RenamePlaylist(oldPlaylistName, newPlaylistName);
-                    List<string> updatedPlaylists = new List<string>();
-                    updatedPlaylists.Add("All Music");
-                    updatedPlaylists.AddRange(musicLib.Playlists);
-                    playlistList.ItemsSource = updatedPlaylists;
-                }
-            }
+
 
             playTheSong();
         }
@@ -263,11 +243,6 @@ namespace hTunes
             string playlistName = txtblock.Text;
             int song = Int32.Parse(songId);
             musicLib.AddSongToPlaylist(song, playlistName);
-            musicLib.Save();
-        }
-        private void highligtNewSong()
-        {
-            dataGrid.SelectedIndex = dataGrid.Items.Count - 1;
             
         }
 
@@ -299,6 +274,11 @@ namespace hTunes
         private void MusicPlayerWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             musicLib.Save();
+        }
+        private void highligtNewSong()
+        {
+            dataGrid.SelectedIndex = dataGrid.Items.Count - 1;
+
         }
     }
 }
