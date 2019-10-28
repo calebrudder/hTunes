@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -49,6 +50,12 @@ namespace hTunes
 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
+
+            List<string> playlists = new List<string>();
+            playlists.Add("All Music");
+            playlists.AddRange(musicLib.Playlists);
+
+            playlistList.ItemsSource = playlists;
         }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -61,8 +68,6 @@ namespace hTunes
             about = new About();
             about.ShowDialog();
         }
-
-        
 
         private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
         {
@@ -110,6 +115,78 @@ namespace hTunes
             // Play song using media player
             mediaPlayer.Open(new Uri(theSong.Filename));
             mediaPlayer.Play();
+        }
+        private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Search_Text_Box.Text = "";
+        }
+
+        private void Search_Text_Box_KeyUp(object sender, KeyEventArgs e)
+        {
+            string text = Search_Text_Box.Text;
+
+            //TODO: Search xml for songs containing text
+        }
+
+        private void Add_Song_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Media Files (*.mp3;*.m4a;*.wma;*.wav)|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*wma|Wave Files (*.wav)|*.wav|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Song s = musicLib.AddSong(openFileDialog.FileName);
+                musicLib.Save();
+                int sID = s.Id;
+            }
+
+        }
+        private void playlistList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataTable table;
+            string playlistName = (sender as ListBox).SelectedItem.ToString();
+            if (playlistName == "All Music")
+            {
+                table = musicLib.Songs;
+                dataGrid.ItemsSource = table.DefaultView;
+            }
+            else
+            {
+                table = musicLib.SongsForPlaylist(playlistName);
+                dataGrid.ItemsSource = table.DefaultView;
+            }
+        }
+        private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            AddPlaylist addPlaylistWindow = new AddPlaylist();
+            addPlaylistWindow.Owner = this;
+            addPlaylistWindow.ShowDialog();
+            if (addPlaylistWindow.DialogResult == true)
+            {
+                string newPlaylistName = addPlaylistWindow.newPlaylistName;
+                if (musicLib.PlaylistExists(newPlaylistName))
+                {
+                    MessageBox.Show("There is already a playlist with that name");
+                }
+                else
+                {
+                    musicLib.AddPlaylist(newPlaylistName);
+                    musicLib.Save();
+                    List<string> updatedPlaylists = new List<string>();
+                    updatedPlaylists.Add("All Music");
+                    updatedPlaylists.AddRange(musicLib.Playlists);
+                    playlistList.ItemsSource = updatedPlaylists;
+                }
+            }
+        }
+        private void MenuItemRename_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+        {
+        
         }
     }
 }
