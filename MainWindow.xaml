@@ -33,6 +33,12 @@
         </ListBox>
 
         <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Play" Click="Play_MenuItemClick"></MenuItem>
+                    <MenuItem Header="Remove" Click="Delete_MenuItemClick"></MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding id}" Visibility="Hidden"/>
                 <DataGridTextColumn Binding="{Binding artist}" Header="Artist"/>
@@ -45,8 +51,8 @@
                 <DataTemplate>
                     <Border Background="AliceBlue">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Title}" />
-                            <Image Source="{Binding AlbumImage}" />
+                            <TextBlock Text="{Binding title}" />
+                            <Image Source="{Binding albumImage}" />
                         </StackPanel>
                     </Border>
                 </DataTemplate>

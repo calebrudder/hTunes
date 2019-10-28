@@ -17,18 +17,25 @@ using System.Windows.Shapes;
 
 namespace hTunes
 {
+    // Reference for mediaPlayer:
+    // https://www.wpf-tutorial.com/audio-video/playing-audio/
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         private MusicLib musicLib;
+        private DataTable table;
         private About about;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
             musicLib = new MusicLib();
             musicLib.PrintAllTables();
+
 
 
             // TODO: Get songs from music.xml (?)
@@ -62,6 +69,53 @@ namespace hTunes
             about.ShowDialog();
         }
 
+        private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+            // Get the song id 
+            int songId = findSelectedRowInDataGrid();
+
+            // Remove the song from all playlist
+            if (songId != -1)
+            {
+                musicLib.DeleteSong(songId);
+            }
+
+            // Possible bug: Removal of a song
+            //  Position of songs in a playlist should be updated to reflect change
+            //      Songs 1, 2, 3
+            //      Delete 2
+            //      New order is: 1, 3 (3 is in position 2)
+        }
+
+        private int findSelectedRowInDataGrid()
+        {
+            DataRowView rowView = dataGrid.SelectedItem as DataRowView;
+            if (rowView != null)
+            {
+                // Extract the song ID from the selected song
+                int songId = Convert.ToInt32(rowView.Row.ItemArray[0]);
+                return songId;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+
+        private void Play_MenuItemClick(object sender, RoutedEventArgs e)
+        {
+
+            // Get song id
+            int songId = findSelectedRowInDataGrid();
+
+            // Get the song itself
+            Song theSong = musicLib.GetSong(songId);
+
+            // Play song using media player
+            mediaPlayer.Open(new Uri(theSong.Filename));
+            mediaPlayer.Play();
+        }
         private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
         {
             Search_Text_Box.Text = "";
@@ -132,7 +186,7 @@ namespace hTunes
         }
         private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
         {
-
+        
         }
     }
 }

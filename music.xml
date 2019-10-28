@@ -1,6 +1,17 @@
 <?xml version="1.0" standalone="yes"?>
 <music>
   <song>
+    <id>9</id>
+    <title>Skillet</title>
+    <artist>Skillet</artist>
+    <album>A skillet song</album>
+    <filename>C:\Users\fmccown\Music\skillet.mp3</filename>
+    <length>2:36</length>
+    <genre>Soundtrack</genre>
+    <url>http://www.last.fm/music/Daft+Punk/TRON:+Legacy</url>
+    <albumImage>http://img2-ak.lst.fm/i/u/34s/83a0d560356141a5c1e594b156eae495.png</albumImage>
+  </song>
+  <song>
     <id>10</id>
     <title>End of Line</title>
     <artist>Daft Punk</artist>
