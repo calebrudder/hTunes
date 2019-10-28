@@ -15,14 +15,14 @@ Teammate Contribution:
   
   
   Hyhway Therrell: <br />
-    &nbsp;&nbsp;&nbsp;&nbsp; DataGrid <br />
-    DataGrid context menu <br />
-       Delete song <br />
-       Play <br />
-    Play and Stop buttons <br />
-    Search box <br />
-    Various bug fixes <br />
-    Focus the new song when added <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DataGrid <br />
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DataGrid context menu <br />
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Delete song <br />
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Play <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Play and Stop buttons <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Search box <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Various bug fixes <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Focus the new song when added <br />
 
 Teammate Percentage: 
  Caleb Rudder:  
