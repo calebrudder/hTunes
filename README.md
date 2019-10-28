@@ -18,6 +18,13 @@ Teammate Contribution:
     drag drop
   
   Riley Judd:
+     ListBox
+   ListBox Content Menu
+     Rename Playlist
+     Delete Playlist
+   Add Playlist Window
+     Add playlist
+   Control Template
   
   
   Hyhway Therrell:
