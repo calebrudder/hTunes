@@ -171,6 +171,7 @@ namespace hTunes
             {
                 Song s = musicLib.AddSong(openFileDialog.FileName);
                 int sID = s.Id;
+                highligtNewSong();
             }
 
         }
@@ -262,6 +263,11 @@ namespace hTunes
             string playlistName = txtblock.Text;
             int song = Int32.Parse(songId);
             musicLib.AddSongToPlaylist(song, playlistName);
+            musicLib.Save();
+        }
+        private void highligtNewSong()
+        {
+            dataGrid.SelectedIndex = dataGrid.Items.Count - 1;
             
         }
 
