@@ -75,7 +75,11 @@ namespace hTunes
             // Remove the song from all playlist
             if (songId != -1)
             {
+                Song s = musicLib.GetSong(songId);
+                string name = s.Title;
                 musicLib.DeleteSong(songId);
+
+                MessageBox.Show(name + " has been removed from the library.");
                 musicLib.Save();
             }
         }
