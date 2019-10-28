@@ -14,15 +14,15 @@ Teammate Contribution:
   Riley Judd: 
   
   
-  Hyhway Therrell: 
-    DataGrid 
-    DataGrid context menu 
-       Delete song 
-       Play 
-    Play and Stop buttons 
-    Search box 
-    Various bug fixes 
-    Focus the new song when added 
+  Hyhway Therrell: <br />
+    DataGrid <br />
+    DataGrid context menu <br />
+       Delete song <br />
+       Play <br />
+    Play and Stop buttons <br />
+    Search box <br />
+    Various bug fixes <br />
+    Focus the new song when added <br />
 
 Teammate Percentage: 
  Caleb Rudder:  
