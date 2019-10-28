@@ -62,6 +62,8 @@ namespace hTunes
             about.ShowDialog();
         }
 
+        
+
         private void Delete_MenuItemClick(object sender, RoutedEventArgs e)
         {
             // Get the song id 
@@ -72,6 +74,12 @@ namespace hTunes
             {
                 musicLib.DeleteSong(songId);
             }
+
+            // Possible bug: Removal of a song
+            //  Position of songs in a playlist should be updated to reflect change
+            //      Songs 1, 2, 3
+            //      Delete 2
+            //      New order is: 1, 3 (3 is in position 2)
         }
 
         private int findSelectedRowInDataGrid()
