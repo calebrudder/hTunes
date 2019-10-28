@@ -37,6 +37,8 @@ namespace hTunes
         private DataTable table;
         private About about;
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        private Point startPoint;
+
 
         public MainWindow()
         {
@@ -53,6 +55,7 @@ namespace hTunes
             playlists.Add("All Music");
             playlists.AddRange(musicLib.Playlists);
 
+            Console.Write(playlists);
             playlistList.ItemsSource = playlists;
         }
 
@@ -212,6 +215,50 @@ namespace hTunes
         private void stopButton_Click(object sender, RoutedEventArgs e)
         {
             stopTheSong();
+        }
+
+        private void TextBlock_Drop(object sender, DragEventArgs e)
+        {
+            // Initiate dragging the text from the textbox
+            string songId = "";
+            foreach (DataGridCellInfo data in dataGrid.SelectedCells)
+            {
+               DataRowView dvr = (DataRowView)data.Item;
+               songId = (dvr[0].ToString());
+
+            }
+
+            TextBlock txtblock = (TextBlock)sender;
+            string playlistName = txtblock.Text;
+            int song = Int32.Parse(songId);
+            musicLib.AddSongToPlaylist(song, playlistName);
+            musicLib.Save();
+            
+        }
+
+        private void DataGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            // Start the drag-drop if mouse has moved far enough
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+
+
+                DragDrop.DoDragDrop(dataGrid, dataGrid, DragDropEffects.Move);
+            }
+
+        }
+
+        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Store the mouse position
+            startPoint = e.GetPosition(null);
+
         }
     }
 }
