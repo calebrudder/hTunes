@@ -283,5 +283,45 @@ namespace hTunes
             dataGrid.SelectedIndex = dataGrid.Items.Count - 1;
 
         }
+        private void MenuItemRename_Click(object sender, RoutedEventArgs e)
+        {
+            if (playlistList.SelectedItem != null)
+            {
+                string oldPlaylistName = playlistList.SelectedItem.ToString();
+                RenamePlaylist renamePlaylistWindow = new RenamePlaylist();
+                renamePlaylistWindow.Owner = this;
+                renamePlaylistWindow.ShowDialog();
+                if (renamePlaylistWindow.DialogResult == true)
+                {
+                    string newPlaylistName = renamePlaylistWindow.updatedPlaylistName;
+                    if (musicLib.PlaylistExists(newPlaylistName))
+                    {
+                        MessageBox.Show("There is already a playlist with that name");
+                    }
+                    else
+                    {
+                        musicLib.RenamePlaylist(oldPlaylistName, newPlaylistName);
+                        List<string> updatedPlaylists = new List<string>();
+                        updatedPlaylists.Add("All Music");
+                        updatedPlaylists.AddRange(musicLib.Playlists);
+                        playlistList.ItemsSource = updatedPlaylists;
+                    }
+                }
+            }
+        }
+
+        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (playlistList.SelectedItem != null)
+            {
+                string playlistToDelete = playlistList.SelectedItem.ToString();
+                musicLib.DeletePlaylist(playlistToDelete);
+                List<string> updatedPlaylists = new List<string>();
+                updatedPlaylists.Add("All Music");
+                updatedPlaylists.AddRange(musicLib.Playlists);
+                playlistList.ItemsSource = updatedPlaylists;
+            }
+        }
     }
 }
+
