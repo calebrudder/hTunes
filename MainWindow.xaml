@@ -30,9 +30,14 @@
                     <MenuItem x:Name="Remove_MenuItem" Header= "Delete" />
                 </ContextMenu>
             </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock AllowDrop="True" Text="{Binding}" Drop="TextBlock_Drop"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
-        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
+        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged" MouseMove="DataGrid_MouseMove" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Play" Click="Play_MenuItemClick"></MenuItem>
