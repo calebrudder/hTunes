@@ -26,8 +26,8 @@
         <ListBox x:Name="playlistList" Grid.Row="1" Grid.Column="0" SelectionChanged="playlistList_SelectionChanged">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header= "Rename" Click="MenuItemRename_Click"/>
-                    <MenuItem Header= "Delete" Click="MenuItemDelete_Click"/>
+                    <MenuItem Header= "Rename" />
+                    <MenuItem x:Name="Remove_MenuItem" Header= "Delete" />
                 </ContextMenu>
             </ListBox.ContextMenu>
         </ListBox>

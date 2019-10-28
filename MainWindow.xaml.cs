@@ -78,6 +78,7 @@ namespace hTunes
             if (songId != -1)
             {
                 musicLib.DeleteSong(songId);
+                musicLib.Save();
             }
 
             // Possible bug: Removal of a song
@@ -179,14 +180,6 @@ namespace hTunes
                     playlistList.ItemsSource = updatedPlaylists;
                 }
             }
-        }
-        private void MenuItemRename_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
-        {
-        
         }
     }
 }
