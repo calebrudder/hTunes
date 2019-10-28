@@ -20,34 +20,34 @@ namespace hTunes
     // Reference for mediaPlayer:
     // https://www.wpf-tutorial.com/audio-video/playing-audio/
 
+    // Reference for LINQ and Datatable
+    // https://www.codecompiled.com/query-datatable-using-linq-in-csharp/
+    // https://stackoverflow.com/questions/10855/linq-query-on-a-datatable
+    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/how-to-query-for-sentences-that-contain-a-specified-set-of-words-linq
+
+    // Resource for Media Player
+    // https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MusicLib musicLib;
+        private MusicLib musicLib = new MusicLib();
         private DataTable table;
         private About about;
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        private Point startPoint;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            musicLib = new MusicLib();
+            // musicLib = new MusicLib();
             musicLib.PrintAllTables();
 
-
-
-            // TODO: Get songs from music.xml (?)
-            // TODO: Put those songs in table   
-
-
-            //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
             DataTable table = musicLib.Songs;
-
-            // Found string[] for songs
-            // string allSongs[] = musicLib.SongIds;  
-
+ 
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
 
@@ -55,6 +55,7 @@ namespace hTunes
             playlists.Add("All Music");
             playlists.AddRange(musicLib.Playlists);
 
+            Console.Write(playlists);
             playlistList.ItemsSource = playlists;
         }
 
@@ -75,16 +76,15 @@ namespace hTunes
             int songId = findSelectedRowInDataGrid();
 
             // Remove the song from all playlist
-            if (songId != -1)
+            if (songId != -1 || songId != null)
             {
+                Song s = musicLib.GetSong(songId);
+                string name = s.Title;
                 musicLib.DeleteSong(songId);
-            }
 
-            // Possible bug: Removal of a song
-            //  Position of songs in a playlist should be updated to reflect change
-            //      Songs 1, 2, 3
-            //      Delete 2
-            //      New order is: 1, 3 (3 is in position 2)
+                MessageBox.Show(name + " has been removed from the library.");
+                musicLib.Save();
+            }
         }
 
         private int findSelectedRowInDataGrid()
@@ -105,33 +105,66 @@ namespace hTunes
 
         private void Play_MenuItemClick(object sender, RoutedEventArgs e)
         {
+            playTheSong();
+        }
 
+        private void stopTheSong()
+        {
             // Get song id
             int songId = findSelectedRowInDataGrid();
 
             // Get the song itself
             Song theSong = musicLib.GetSong(songId);
 
+            if (theSong != null)
+            {
+                // Stop song using media player
+                mediaPlayer.Open(new Uri(theSong.Filename));
+                mediaPlayer.Stop();
+            }
+        }
+
+        private void playTheSong()
+        {
+            // Get song id
+            int songId = findSelectedRowInDataGrid();
+
+            // Get the song itself
+            Song theSong = musicLib.GetSong(songId);
+
+
             // Play song using media player
-            mediaPlayer.Open(new Uri(theSong.Filename));
-            mediaPlayer.Play();
+            if (theSong != null)
+            {
+                mediaPlayer.Open(new Uri(theSong.Filename));
+                mediaPlayer.Play();
+            }
         }
         private void Search_Text_Box_GotFocus(object sender, RoutedEventArgs e)
         {
             Search_Text_Box.Text = "";
         }
-
+        
         private void Search_Text_Box_KeyUp(object sender, KeyEventArgs e)
         {
             string text = Search_Text_Box.Text;
 
-            //TODO: Search xml for songs containing text
+            DataTable allTheSongs = musicLib.Songs;
+
+            var results = from a in allTheSongs.AsEnumerable()
+                          where 
+                            a.Field<string>("title").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("artist").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("genre").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("album").ToUpper().Contains(text.ToUpper())
+                          select a;
+
+            DataTable dt = results.CopyToDataTable<DataRow>();
+            dataGrid.ItemsSource = dt.DefaultView;
         }
 
         private void Add_Song_Button_Click(object sender, RoutedEventArgs e)
         {
-            //https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Media Files (*.mp3;*.m4a;*.wma;*.wav)|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*wma|Wave Files (*.wav)|*.wav|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
@@ -183,7 +216,8 @@ namespace hTunes
                 }
             }
         }
-        private void MenuItemRename_Click(object sender, RoutedEventArgs e)
+
+        private void playButton_Click(object sender, RoutedEventArgs e)
         {
             string oldPlaylistName = playlistList.SelectedItem.ToString();
             RenamePlaylist renamePlaylistWindow = new RenamePlaylist();
@@ -206,10 +240,58 @@ namespace hTunes
                     playlistList.ItemsSource = updatedPlaylists;
                 }
             }
+
+            playTheSong();
         }
-        private void MenuItemDelete_Click(object sender, RoutedEventArgs e)
+
+        private void stopButton_Click(object sender, RoutedEventArgs e)
         {
-        
+            stopTheSong();
+
+        }
+
+        private void TextBlock_Drop(object sender, DragEventArgs e)
+        {
+            // Initiate dragging the text from the textbox
+            string songId = "";
+            foreach (DataGridCellInfo data in dataGrid.SelectedCells)
+            {
+               DataRowView dvr = (DataRowView)data.Item;
+               songId = (dvr[0].ToString());
+
+            }
+
+            TextBlock txtblock = (TextBlock)sender;
+            string playlistName = txtblock.Text;
+            int song = Int32.Parse(songId);
+            musicLib.AddSongToPlaylist(song, playlistName);
+            musicLib.Save();
+            
+        }
+
+        private void DataGrid_MouseMove(object sender, MouseEventArgs e)
+        {
+            // Get the current mouse position
+            Point mousePos = e.GetPosition(null);
+            Vector diff = startPoint - mousePos;
+
+            // Start the drag-drop if mouse has moved far enough
+            if (e.LeftButton == MouseButtonState.Pressed &&
+                (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
+                Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
+            {
+
+
+                DragDrop.DoDragDrop(dataGrid, dataGrid, DragDropEffects.Move);
+            }
+
+        }
+
+        private void DataGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Store the mouse position
+            startPoint = e.GetPosition(null);
+
         }
     }
 }

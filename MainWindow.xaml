@@ -26,13 +26,18 @@
         <ListBox x:Name="playlistList" Grid.Row="1" Grid.Column="0" SelectionChanged="playlistList_SelectionChanged">
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header= "Rename" Click="MenuItemRename_Click"/>
-                    <MenuItem Header= "Delete" Click="MenuItemDelete_Click"/>
+                    <MenuItem Header= "Rename" />
+                    <MenuItem x:Name="Remove_MenuItem" Header= "Delete" />
                 </ContextMenu>
             </ListBox.ContextMenu>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock AllowDrop="True" Text="{Binding}" Drop="TextBlock_Drop"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
-        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged">
+        <DataGrid Name="dataGrid" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" SelectionChanged="dataGrid_SelectionChanged" MouseMove="DataGrid_MouseMove" PreviewMouseLeftButtonDown="DataGrid_PreviewMouseLeftButtonDown">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Play" Click="Play_MenuItemClick"></MenuItem>
@@ -60,8 +65,8 @@
 
         </DataGrid>
 
-        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146"/>
-        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146"/>
+        <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Height="27" Grid.Row="2" Grid.Column="1" Width="146" Click="playButton_Click"/>
+        <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Height="27" Grid.Row="2" Margin="150,0,0,0" Grid.Column="1" Width="146" Click="stopButton_Click"/>
 
     </Grid>
 </Window>
