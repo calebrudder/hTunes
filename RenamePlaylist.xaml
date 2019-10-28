@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:hTunes"
         mc:Ignorable="d"
         Title="Rename Playlist" Height="151" Width="285" WindowStartupLocation="CenterOwner">
+   
     <Grid>
         <Button x:Name="okButton" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="50,82,0,0" Click="OkButton_Clicked"/>
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="144,82,0,0" IsCancel="True"/>
         <TextBox x:Name="playlistNameBox" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="121,44,0,0"/>
         <TextBlock x:Name="playlistNameText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Playlist Name:" VerticalAlignment="Top" Margin="35,48,0,0"/>
-    <Grid>
-        
     </Grid>
+        
 </Window>
