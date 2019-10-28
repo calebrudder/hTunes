@@ -20,12 +20,20 @@ namespace hTunes
     // Reference for mediaPlayer:
     // https://www.wpf-tutorial.com/audio-video/playing-audio/
 
+    // Reference for LINQ and Datatable
+    // https://www.codecompiled.com/query-datatable-using-linq-in-csharp/
+    // https://stackoverflow.com/questions/10855/linq-query-on-a-datatable
+    // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/how-to-query-for-sentences-that-contain-a-specified-set-of-words-linq
+
+    // Resource for Media Player
+    // https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MusicLib musicLib;
+        private MusicLib musicLib = new MusicLib();
         private DataTable table;
         private About about;
         private MediaPlayer mediaPlayer = new MediaPlayer();
@@ -33,14 +41,11 @@ namespace hTunes
         public MainWindow()
         {
             InitializeComponent();
-            musicLib = new MusicLib();
+            // musicLib = new MusicLib();
             musicLib.PrintAllTables();
 
-
-            //DataTable table = musicLib.SongsForPlaylist("Cool stuff!");
             DataTable table = musicLib.Songs;
  
-
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
 
@@ -73,12 +78,6 @@ namespace hTunes
                 musicLib.DeleteSong(songId);
                 musicLib.Save();
             }
-
-            // Possible bug: Removal of a song
-            //  Position of songs in a playlist should be updated to reflect change
-            //      Songs 1, 2, 3
-            //      Delete 2
-            //      New order is: 1, 3 (3 is in position 2)
         }
 
         private int findSelectedRowInDataGrid()
@@ -99,17 +98,6 @@ namespace hTunes
 
         private void Play_MenuItemClick(object sender, RoutedEventArgs e)
         {
-            /*
-            // Get song id
-            int songId = findSelectedRowInDataGrid();
-
-            // Get the song itself
-            Song theSong = musicLib.GetSong(songId);
-
-            // Play song using media player
-            mediaPlayer.Open(new Uri(theSong.Filename));
-            mediaPlayer.Play();
-            */
             playTheSong();
         }
 
@@ -142,18 +130,27 @@ namespace hTunes
         {
             Search_Text_Box.Text = "";
         }
-
+        
         private void Search_Text_Box_KeyUp(object sender, KeyEventArgs e)
         {
             string text = Search_Text_Box.Text;
 
-            //TODO: Search xml for songs containing text
+            DataTable allTheSongs = musicLib.Songs;
+
+            var results = from a in allTheSongs.AsEnumerable()
+                          where 
+                            a.Field<string>("title").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("artist").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("genre").ToUpper().Contains(text.ToUpper()) ||
+                            a.Field<string>("album").ToUpper().Contains(text.ToUpper())
+                          select a;
+
+            DataTable dt = results.CopyToDataTable<DataRow>();
+            dataGrid.ItemsSource = dt.DefaultView;
         }
 
         private void Add_Song_Button_Click(object sender, RoutedEventArgs e)
         {
-            //https://www.wpf-tutorial.com/dialogs/the-openfiledialog/
-
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Media Files (*.mp3;*.m4a;*.wma;*.wav)|*.mp3;*.m4a;*.wma;*.wav|MP3 (*.mp3)|*.mp3|M4A (*.m4a)|*.m4a|Windows Media Audio (*.wma)|*wma|Wave Files (*.wav)|*.wav|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
