@@ -38,6 +38,7 @@ namespace hTunes
         private About about;
         private MediaPlayer mediaPlayer = new MediaPlayer();
         private Point startPoint;
+        private string playlistName = "";
 
 
         public MainWindow()
@@ -51,11 +52,13 @@ namespace hTunes
             // Bind the data source
             dataGrid.ItemsSource = table.DefaultView;
 
+
             List<string> playlists = new List<string>();
             playlists.Add("All Music");
             playlists.AddRange(musicLib.Playlists);
 
-            Console.Write(playlists);
+            playlistName = "All Music";
+
             playlistList.ItemsSource = playlists;
         }
 
@@ -76,7 +79,7 @@ namespace hTunes
             int songId = findSelectedRowInDataGrid();
 
             // Remove the song from all playlist
-            if (songId != -1 || songId != null)
+            if (songId != -1 || songId != null && playlistName == "All Music")
             {
                 Song s = musicLib.GetSong(songId);
                 string name = s.Title;
@@ -179,7 +182,7 @@ namespace hTunes
             DataTable table;
             if ((sender as ListBox).SelectedItem != null)
             {
-                string playlistName = (sender as ListBox).SelectedItem.ToString();
+                playlistName = (sender as ListBox).SelectedItem.ToString();
                 if (playlistName == "All Music")
                 {
                     table = musicLib.Songs;
