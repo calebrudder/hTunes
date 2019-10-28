@@ -83,7 +83,7 @@ namespace hTunes
                 musicLib.DeleteSong(songId);
 
                 MessageBox.Show(name + " has been removed from the library.");
-                musicLib.Save();
+
             }
         }
 
@@ -170,7 +170,6 @@ namespace hTunes
             if (openFileDialog.ShowDialog() == true)
             {
                 Song s = musicLib.AddSong(openFileDialog.FileName);
-                musicLib.Save();
                 int sID = s.Id;
                 highligtNewSong();
             }
@@ -179,16 +178,19 @@ namespace hTunes
         private void playlistList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataTable table;
-            string playlistName = (sender as ListBox).SelectedItem.ToString();
-            if (playlistName == "All Music")
+            if ((sender as ListBox).SelectedItem != null)
             {
-                table = musicLib.Songs;
-                dataGrid.ItemsSource = table.DefaultView;
-            }
-            else
-            {
-                table = musicLib.SongsForPlaylist(playlistName);
-                dataGrid.ItemsSource = table.DefaultView;
+                string playlistName = (sender as ListBox).SelectedItem.ToString();
+                if (playlistName == "All Music")
+                {
+                    table = musicLib.Songs;
+                    dataGrid.ItemsSource = table.DefaultView;
+                }
+                else
+                {
+                    table = musicLib.SongsForPlaylist(playlistName);
+                    dataGrid.ItemsSource = table.DefaultView;
+                }
             }
         }
         private void addPlaylistBtn_Clicked(object sender, RoutedEventArgs e)
@@ -206,7 +208,6 @@ namespace hTunes
                 else
                 {
                     musicLib.AddPlaylist(newPlaylistName);
-                    musicLib.Save();
                     List<string> updatedPlaylists = new List<string>();
                     updatedPlaylists.Add("All Music");
                     updatedPlaylists.AddRange(musicLib.Playlists);
@@ -217,12 +218,34 @@ namespace hTunes
 
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
+            string oldPlaylistName = playlistList.SelectedItem.ToString();
+            RenamePlaylist renamePlaylistWindow = new RenamePlaylist();
+            renamePlaylistWindow.Owner = this;
+            renamePlaylistWindow.ShowDialog();
+            if (renamePlaylistWindow.DialogResult == true)
+            {
+                string newPlaylistName = renamePlaylistWindow.updatedPlaylistName;
+                if (musicLib.PlaylistExists(newPlaylistName))
+                {
+                    MessageBox.Show("There is already a playlist with that name");
+                }
+                else
+                {
+                    musicLib.RenamePlaylist(oldPlaylistName, newPlaylistName);
+                    List<string> updatedPlaylists = new List<string>();
+                    updatedPlaylists.Add("All Music");
+                    updatedPlaylists.AddRange(musicLib.Playlists);
+                    playlistList.ItemsSource = updatedPlaylists;
+                }
+            }
+
             playTheSong();
         }
 
         private void stopButton_Click(object sender, RoutedEventArgs e)
         {
             stopTheSong();
+
         }
 
         private void TextBlock_Drop(object sender, DragEventArgs e)
@@ -245,6 +268,7 @@ namespace hTunes
         private void highligtNewSong()
         {
             dataGrid.SelectedIndex = dataGrid.Items.Count - 1;
+            
         }
 
         private void DataGrid_MouseMove(object sender, MouseEventArgs e)
@@ -270,6 +294,11 @@ namespace hTunes
             // Store the mouse position
             startPoint = e.GetPosition(null);
 
+        }
+
+        private void MusicPlayerWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            musicLib.Save();
         }
     }
 }
